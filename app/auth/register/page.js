@@ -53,6 +53,7 @@ export default function SignupPage() {
   const handleGoogleSignup = () => {
     console.log("Google signup clicked");
     // backend Google OAuth integration placeholder
+    window.location.href = `${process.env.NEXT_PUBLIC_API_URL}/api/users/auth/google`;
   };
 
   return (

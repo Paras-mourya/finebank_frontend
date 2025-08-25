@@ -32,13 +32,14 @@ export default function LoginPage() {
     }
   };
 
+  // ✅ Google Sign In
   const handleGoogleSignIn = () => {
-    console.log("Google sign in clicked");
+    // Backend ke route pe redirect karna hoga
+    window.location.href = `${process.env.NEXT_PUBLIC_API_URL}/api/users/auth/google`;
   };
 
   return (
     <div className="min-h-screen bg-background flex items-center justify-center p-4">
-      {/* 🟢 Card wrapper like RegisterPage */}
       <Card className="w-full max-w-md shadow-lg">
         <CardContent className="p-8 space-y-8">
           {/* Logo */}
