@@ -33,10 +33,14 @@ export default function LoginPage() {
   };
 
   // ✅ Google Sign In
-  const handleGoogleSignIn = () => {
-    // Backend ke route pe redirect karna hoga
-    window.location.href = `${process.env.NEXT_PUBLIC_API_URL}/api/users/auth/google`;
-  };
+  // ✅ Google Sign In
+const handleGoogleSignIn = () => {
+  // Always use NEXT_PUBLIC_BACKEND_URL
+  const googleAuthUrl = `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/users/auth/google`;
+  console.log("👉 Redirecting to:", googleAuthUrl);
+  window.location.href = googleAuthUrl;
+};
+
 
   return (
     <div className="min-h-screen bg-background flex items-center justify-center p-4">

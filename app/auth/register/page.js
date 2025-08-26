@@ -51,10 +51,12 @@ export default function SignupPage() {
   };
 
   const handleGoogleSignup = () => {
-    console.log("Google signup clicked");
-    // backend Google OAuth integration placeholder
-    window.location.href = `${process.env.NEXT_PUBLIC_API_URL}/api/users/auth/google`;
-  };
+  console.log("Google signup clicked");
+  const googleAuthUrl = `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/users/auth/google`;
+  console.log("👉 Redirecting to:", googleAuthUrl);
+  window.location.href = googleAuthUrl;
+};
+
 
   return (
     <div className="min-h-screen bg-background flex items-center justify-center p-4">
