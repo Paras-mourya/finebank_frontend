@@ -46,7 +46,7 @@ export default function BillsPage() {
                   key={bill._id}
                   className="border-b last:border-0 hover:bg-gray-50"
                 >
-                  {/* Due Date */}
+                  
                   <td className="py-4 text-center">
                     <div className="flex flex-col items-center justify-center bg-gray-100 rounded-lg w-14 h-14">
                       <span className="text-xs font-medium text-gray-500">
@@ -60,7 +60,7 @@ export default function BillsPage() {
                     </div>
                   </td>
 
-                  {/* Logo */}
+                  
                   <td className="py-4">
                     <img
                       src={bill.logoUrl || "/default-logo.png"}
@@ -69,7 +69,7 @@ export default function BillsPage() {
                     />
                   </td>
 
-                  {/* Description */}
+                  
                   <td className="py-4">
                     <p className="font-medium text-gray-800">
                       {bill.vendor} - {bill.plan}
@@ -81,7 +81,7 @@ export default function BillsPage() {
                     </p>
                   </td>
 
-                  {/* Last Charge */}
+                  
                   <td className="py-4 text-gray-600">
                     {bill.lastChargeDate
                       ? new Date(bill.lastChargeDate).toLocaleDateString("en-US", {
@@ -92,7 +92,7 @@ export default function BillsPage() {
                       : "—"}
                   </td>
 
-                  {/* Amount */}
+                  
                   <td className="py-4 text-right font-bold text-gray-800">
                     ${bill.amount}
                   </td>

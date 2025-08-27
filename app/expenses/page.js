@@ -40,7 +40,7 @@ export default function ExpensesPage() {
     <div className="min-h-screen bg-gray-50 p-6">
       <h2 className="text-2xl font-bold mb-6 text-gray-800">Expenses</h2>
 
-      {/* Expenses Comparison Chart */}
+     
       <Card className="mb-8 shadow-md rounded-2xl">
         <CardHeader>
           <CardTitle className="text-lg font-semibold text-gray-700">
@@ -62,7 +62,7 @@ export default function ExpensesPage() {
         </CardContent>
       </Card>
 
-      {/* Expenses Breakdown */}
+     
       <h3 className="text-lg font-semibold text-gray-700 mb-4">
         Expenses Breakdown
       </h3>

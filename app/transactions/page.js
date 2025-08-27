@@ -44,12 +44,12 @@ export default function TransactionsPage() {
     dispatch(getTransactions());
   }, [dispatch]);
 
-  // handle input change
+  
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  // submit form (create or update)
+
   const handleSubmit = (e) => {
     e.preventDefault();
     if (editId) {
@@ -70,7 +70,7 @@ export default function TransactionsPage() {
     setOpen(false);
   };
 
-  // 👉 filter transactions
+  
   const filteredTransactions = transactions.filter((t) => {
     if (filter === "all") return true;
     if (filter === "revenue") return t.type === "income";
@@ -80,10 +80,10 @@ export default function TransactionsPage() {
 
   return (
     <div className="p-6 space-y-6 bg-gray-50 min-h-screen">
-      {/* Header */}
+      
       <h2 className="text-2xl font-bold text-gray-800">Recent Transactions</h2>
 
-      {/* Tabs */}
+      
       <div className="flex gap-6 border-b pb-2">
         {["all", "revenue", "expenses"].map((tab) => (
           <button
@@ -99,8 +99,6 @@ export default function TransactionsPage() {
           </button>
         ))}
       </div>
-
-      {/* Table */}
       <Card className="shadow-lg rounded-xl p-4">
         <table className="w-full text-sm">
           <thead className="text-left border-b">
@@ -177,7 +175,7 @@ export default function TransactionsPage() {
         </table>
       </Card>
 
-      {/* Add / Edit Modal */}
+      
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogContent>
           <DialogHeader>
@@ -264,7 +262,7 @@ export default function TransactionsPage() {
         </DialogContent>
       </Dialog>
 
-      {/* Add Transaction Button */}
+      
       <Button
         className="bg-teal-600 hover:bg-teal-700"
         onClick={() => {

@@ -37,7 +37,7 @@ export default function SignupPage() {
 
     try {
       const response = await dispatch(registerUser(form));
-      // backend se payload
+      
       if (response?.payload) {
         console.log("Registration successful:", response.payload);
         setForm({ name: "", email: "", password: "" });

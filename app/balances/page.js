@@ -137,7 +137,7 @@ export default function BalancesPage() {
         </p>
       </div>
 
-      {/* Accounts Grid */}
+      
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {accounts.length === 0 ? (
           <p className="text-muted-foreground">No accounts yet. Add one!</p>

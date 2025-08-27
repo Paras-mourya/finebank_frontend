@@ -1,10 +1,9 @@
-// redux/slice/billSlice.js
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import api from "@api/api";
 
 api.defaults.withCredentials = true;
 
-// Get all bills
+
 export const getBills = createAsyncThunk("bills/get", async () => {
   const res = await api.get("http://localhost:4000/api/bills");
   return res.data.bills;

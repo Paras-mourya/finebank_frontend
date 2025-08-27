@@ -9,15 +9,15 @@ export default function UpdateProfileCard() {
   const dispatch = useDispatch();
   const { user, loading } = useSelector((state) => state.user);
 
-  // tab state
+ 
   const [activeTab, setActiveTab] = useState("account");
 
-  // account state
+  
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [avatar, setAvatar] = useState(null);
 
-  // security state
+ 
   const [currentPassword, setCurrentPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -51,13 +51,13 @@ export default function UpdateProfileCard() {
       return;
     }
 
-    // TODO: Backend pe reset/change password API call karni hai
+    
     console.log("Password Change Request:", { currentPassword, newPassword });
   };
 
   return (
     <div className="bg-white shadow-md rounded-xl p-6">
-      {/* Tabs */}
+      
       <div className="flex border-b mb-6 space-x-6">
         <button
           onClick={() => setActiveTab("account")}
@@ -81,13 +81,13 @@ export default function UpdateProfileCard() {
         </button>
       </div>
 
-      {/* Account Tab */}
+     
       {activeTab === "account" && (
         <div className="flex space-x-8">
-          {/* Left: Account Info */}
+          
           <div className="flex-1">
             <form onSubmit={handleUpdateProfile} className="space-y-4">
-              {/* Name */}
+              
               <div>
                 <label className="block text-sm font-medium text-gray-700">
                   Full Name
@@ -100,7 +100,7 @@ export default function UpdateProfileCard() {
                 />
               </div>
 
-              {/* Email (read only) */}
+      
               <div>
                 <label className="block text-sm font-medium text-gray-700">
                   Email
@@ -113,7 +113,7 @@ export default function UpdateProfileCard() {
                 />
               </div>
 
-              {/* Phone */}
+           
               <div>
                 <label className="block text-sm font-medium text-gray-700">
                   Phone Number
@@ -126,7 +126,7 @@ export default function UpdateProfileCard() {
                 />
               </div>
 
-              {/* Submit */}
+              
               <button
                 type="submit"
                 className="mt-4 bg-teal-600 text-white px-4 py-2 rounded-md shadow hover:bg-teal-700"
@@ -137,7 +137,7 @@ export default function UpdateProfileCard() {
             </form>
           </div>
 
-          {/* Right: Profile Picture */}
+          
           <div className="flex flex-col items-center space-y-3">
             <span className="text-sm font-medium text-gray-700">
               Your Profile Picture
@@ -170,11 +170,11 @@ export default function UpdateProfileCard() {
         </div>
       )}
 
-      {/* Security Tab */}
+      
       {activeTab === "security" && (
         <div className="max-w-md">
           <form onSubmit={handleChangePassword} className="space-y-4">
-            {/* Current Password */}
+            
             <div>
               <label className="block text-sm font-medium text-gray-700">
                 Current Password
@@ -187,7 +187,7 @@ export default function UpdateProfileCard() {
               />
             </div>
 
-            {/* New Password */}
+           
             <div>
               <label className="block text-sm font-medium text-gray-700">
                 New Password
@@ -200,7 +200,7 @@ export default function UpdateProfileCard() {
               />
             </div>
 
-            {/* Confirm Password */}
+            
             <div>
               <label className="block text-sm font-medium text-gray-700">
                 Confirm Password

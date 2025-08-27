@@ -11,10 +11,10 @@ export default function Navbar() {
   const [search, setSearch] = useState("");
   const dispatch = useDispatch();
 
-  // 👇 Redux se user data
+  
   const { user, loading } = useSelector((state) => state.user);
 
-  // 👇 jab Navbar load ho → backend se profile le
+  
   useEffect(() => {
     dispatch(getProfile());
   }, [dispatch]);
@@ -27,7 +27,7 @@ export default function Navbar() {
 
   return (
     <header className="sticky top-0 z-50 bg-white border-b border-gray-200 px-6 py-3 flex items-center justify-between">
-      {/* Left Section */}
+      
       <div className="flex flex-col">
         <h1 className="text-lg font-semibold text-gray-800">
           Hello {loading ? "..." : user?.name || "Guest"}
@@ -35,9 +35,8 @@ export default function Navbar() {
         <span className="text-sm text-gray-500">{today}</span>
       </div>
 
-      {/* Right Section */}
       <div className="flex items-center gap-4">
-        {/* Search box */}
+    
         <div className="relative">
           <input
             type="text"
@@ -48,7 +47,7 @@ export default function Navbar() {
           />
         </div>
 
-        {/* Notifications */}
+      
         <button className="relative text-gray-500 hover:text-gray-700">
           <Bell className="h-5 w-5" />
           <span className="absolute top-0 right-0 inline-flex h-2 w-2 rounded-full bg-teal-500"></span>

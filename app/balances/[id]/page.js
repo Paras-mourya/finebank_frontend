@@ -51,7 +51,7 @@ export default function AccountDetailPage() {
               </tr>
             </thead>
             <tbody>
-              {/* Example static transactions */}
+              
               <tr>
                 <td>17 Apr, 2023</td>
                 <td>Complete</td>

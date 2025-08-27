@@ -2,24 +2,21 @@
 @tailwind components;
 @tailwind utilities;
 
-/* 🔧 Theme tokens (HSL) — shadcn/v0 style + Sidebar tokens merged */
+
 @layer base {
   :root {
-    /* base */
+    
     --background: 0 0% 100%;
     --foreground: 222.2 84% 4.9%;
 
-    /* surfaces */
+    
     --card: 0 0% 100%;
     --card-foreground: 222.2 84% 4.9%;
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
-
-    /* 🎨 brand: #299D91 */
     --primary: 174 59% 39%;
     --primary-foreground: 0 0% 100%;
 
-    /* support */
     --secondary: 210 40% 96.1%;
     --secondary-foreground: 222.2 47.4% 11.2%;
     --muted: 210 40% 96.1%;
@@ -28,23 +25,21 @@
     --accent-foreground: 222.2 47.4% 11.2%;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
-
-    /* borders / inputs / ring */
     --border: 214.3 31.8% 91.4%;
     --input: 214.3 31.8% 91.4%;
     --ring: 174 59% 39%;
 
-    /* radius */
+    
     --radius: 0.5rem;
 
-    /* charts (optional) */
+    
     --chart-1: 12 76% 61%;
     --chart-2: 173 58% 39%;
     --chart-3: 197 37% 24%;
     --chart-4: 43 74% 66%;
     --chart-5: 27 87% 67%;
 
-    /* 🧱 sidebar tokens (login snippet se) */
+  
     --sidebar: 0 0% 98%;
     --sidebar-foreground: 222.2 84% 4.9%;
     --sidebar-primary: var(--primary);
@@ -121,7 +116,7 @@
   .brand-logo {
     @apply text-4xl font-extrabold tracking-wider text-center;
   }
-  .brand-fin { @apply text-primary; }      /* FINE */
-  .brand-bank { @apply text-foreground font-medium; } /* bank */
-  .brand-io { @apply text-primary; }       /* .IO */
+  .brand-fin { @apply text-primary; }      
+  .brand-bank { @apply text-foreground font-medium; } 
+  .brand-io { @apply text-primary; }       
 }

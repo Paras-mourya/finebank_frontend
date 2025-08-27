@@ -18,7 +18,7 @@ export default function ProfileCard() {
 
   return (
     <Card className="bg-white shadow-xl rounded-2xl border border-gray-200 overflow-hidden">
-      {/* Header with avatar */}
+      
       <CardHeader className="flex flex-col items-center bg-gradient-to-r from-teal-500 to-cyan-500 p-6">
         <img
           src={user.avatar?.secure_url || "/default-avatar.png"}
@@ -33,7 +33,7 @@ export default function ProfileCard() {
         </div>
       </CardHeader>
 
-      {/* Grid Info */}
+      
       <CardContent className="p-6 grid grid-cols-2 gap-6">
         <div className="flex flex-col items-center p-4 bg-gray-50 rounded-xl shadow-sm">
           <span className="text-sm text-gray-500">📞 Phone</span>

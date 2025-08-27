@@ -13,7 +13,7 @@ export default function ForgotPasswordPage() {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    // Handle password reset logic here
+    
     console.log("Password reset requested for:", email)
     setIsSubmitted(true)
   }

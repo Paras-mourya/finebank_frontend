@@ -50,7 +50,7 @@ export default function AddAccountModal() {
 
       <DialogContent>
         <DialogHeader>
-          {/* 👇 Ye line zaroori hai (error isi ki wajah se aa raha tha) */}
+          
           <DialogTitle>Add New Account</DialogTitle>
         </DialogHeader>
 

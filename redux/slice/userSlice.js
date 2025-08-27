@@ -2,11 +2,11 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 import api from "@api/api";
 
-// 👇 baseURL fix kar (backend ka URL dal)
+
 
 api.defaults.withCredentials = true;
 
-// REGISTER
+
 export const registerUser = createAsyncThunk("user/register", async (data, { rejectWithValue }) => {
   try {
     const res = await api.post("/api/users/register", data);
@@ -16,7 +16,6 @@ export const registerUser = createAsyncThunk("user/register", async (data, { rej
   }
 });
 
-// LOGIN
 export const loginUser = createAsyncThunk("user/login", async (data, { rejectWithValue }) => {
   try {
     const res = await api.post("/api/users/login", data);

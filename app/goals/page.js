@@ -52,7 +52,7 @@ export default function GoalsPage() {
     dispatch(getGoals());
   }, [dispatch]);
 
-  // Handle Create / Update
+  
   const handleSubmit = () => {
     if (editId) {
       dispatch(updateGoal({ id: editId, data: form }));
@@ -64,7 +64,7 @@ export default function GoalsPage() {
     setEditId(null);
   };
 
-  // Chart Data
+  
   const chartData = goals.map((goal) => ({
     name: goal.title,
     target: goal.targetAmount,
@@ -80,7 +80,7 @@ export default function GoalsPage() {
 
   return (
     <div className="min-h-screen bg-gray-50 p-6">
-      {/* Header */}
+      
       <div className="flex justify-between items-center mb-6">
         <h2 className="text-3xl font-bold bg-gradient-to-r from-teal-600 to-emerald-500 bg-clip-text text-transparent">
           Goals Dashboard
@@ -96,9 +96,9 @@ export default function GoalsPage() {
         </Button>
       </div>
 
-      {/* Charts Section */}
+     
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
-        {/* Line Chart */}
+        
         <Card className="shadow-lg rounded-xl hover:shadow-2xl transition">
           <CardHeader className="bg-gradient-to-r from-teal-50 to-emerald-50 rounded-t-xl">
             <CardTitle className="text-lg font-semibold text-gray-700">
@@ -135,7 +135,7 @@ export default function GoalsPage() {
           </CardContent>
         </Card>
 
-        {/* Pie Chart */}
+        
         <Card className="shadow-lg rounded-xl hover:shadow-2xl transition">
           <CardHeader className="bg-gradient-to-r from-purple-50 to-indigo-50 rounded-t-xl">
             <CardTitle className="text-lg font-semibold text-gray-700">
@@ -173,7 +173,7 @@ export default function GoalsPage() {
         </Card>
       </div>
 
-      {/* Goals List */}
+      
       <h3 className="text-xl font-semibold text-gray-700 mb-4">
         Your Goals
       </h3>
@@ -207,7 +207,7 @@ export default function GoalsPage() {
                     Target: ${goal.targetAmount}
                   </p>
 
-                  {/* Progress bar */}
+                  
                   <div className="w-full bg-gray-200 rounded-full h-2 mb-3">
                     <div
                       className="bg-gradient-to-r from-teal-400 to-emerald-500 h-2 rounded-full"
@@ -251,7 +251,7 @@ export default function GoalsPage() {
         </div>
       )}
 
-      {/* Modal */}
+      
       <Dialog open={showModal} onOpenChange={setShowModal}>
         <DialogContent className="rounded-xl p-6 max-w-md">
           <DialogHeader>

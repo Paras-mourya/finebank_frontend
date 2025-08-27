@@ -17,7 +17,7 @@ const geistMono = Geist_Mono({
 export default function AuthLayout({ children }) {
   return (
     <Providers>
-      {/* 🟢 Only background & min-height, remove flex centering */}
+      
       <div
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-background min-h-screen`}
       >
