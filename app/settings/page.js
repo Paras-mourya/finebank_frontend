@@ -2,22 +2,20 @@
 
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-
-import { getProfile, updateProfile } from "@/redux/slice/userSlice";
+import { getProfile, updateProfile, changePassword } from "@/redux/slice/userSlice";
 
 export default function UpdateProfileCard() {
   const dispatch = useDispatch();
   const { user, loading } = useSelector((state) => state.user);
 
- 
   const [activeTab, setActiveTab] = useState("account");
 
-  
+  // profile state
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [avatar, setAvatar] = useState(null);
 
- 
+  // password state
   const [currentPassword, setCurrentPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -33,6 +31,7 @@ export default function UpdateProfileCard() {
     }
   }, [user]);
 
+  // profile update
   const handleUpdateProfile = (e) => {
     e.preventDefault();
     const formData = new FormData();
@@ -44,20 +43,27 @@ export default function UpdateProfileCard() {
     dispatch(updateProfile(formData));
   };
 
-  const handleChangePassword = (e) => {
-    e.preventDefault();
-    if (newPassword !== confirmPassword) {
-      alert("Passwords do not match!");
-      return;
-    }
+  // password change
+  // password change
+const handleChangePassword = (e) => {
+  e.preventDefault();
+  if (newPassword !== confirmPassword) {
+    alert("Passwords do not match!");
+    return;
+  }
 
-    
-    console.log("Password Change Request:", { currentPassword, newPassword });
-  };
+  dispatch(
+    changePassword({
+      oldPassword: currentPassword,   // 👈 yeh fix
+      newPassword,
+    })
+  );
+};
+
 
   return (
     <div className="bg-white shadow-md rounded-xl p-6">
-      
+      {/* Tabs */}
       <div className="flex border-b mb-6 space-x-6">
         <button
           onClick={() => setActiveTab("account")}
@@ -81,13 +87,12 @@ export default function UpdateProfileCard() {
         </button>
       </div>
 
-     
+      {/* Account Tab */}
       {activeTab === "account" && (
         <div className="flex space-x-8">
-          
+          {/* form */}
           <div className="flex-1">
             <form onSubmit={handleUpdateProfile} className="space-y-4">
-              
               <div>
                 <label className="block text-sm font-medium text-gray-700">
                   Full Name
@@ -100,7 +105,6 @@ export default function UpdateProfileCard() {
                 />
               </div>
 
-      
               <div>
                 <label className="block text-sm font-medium text-gray-700">
                   Email
@@ -113,7 +117,6 @@ export default function UpdateProfileCard() {
                 />
               </div>
 
-           
               <div>
                 <label className="block text-sm font-medium text-gray-700">
                   Phone Number
@@ -126,7 +129,6 @@ export default function UpdateProfileCard() {
                 />
               </div>
 
-              
               <button
                 type="submit"
                 className="mt-4 bg-teal-600 text-white px-4 py-2 rounded-md shadow hover:bg-teal-700"
@@ -137,7 +139,7 @@ export default function UpdateProfileCard() {
             </form>
           </div>
 
-          
+          {/* avatar */}
           <div className="flex flex-col items-center space-y-3">
             <span className="text-sm font-medium text-gray-700">
               Your Profile Picture
@@ -170,11 +172,10 @@ export default function UpdateProfileCard() {
         </div>
       )}
 
-      
+      {/* Security Tab */}
       {activeTab === "security" && (
         <div className="max-w-md">
           <form onSubmit={handleChangePassword} className="space-y-4">
-            
             <div>
               <label className="block text-sm font-medium text-gray-700">
                 Current Password
@@ -187,7 +188,6 @@ export default function UpdateProfileCard() {
               />
             </div>
 
-           
             <div>
               <label className="block text-sm font-medium text-gray-700">
                 New Password
@@ -200,7 +200,6 @@ export default function UpdateProfileCard() {
               />
             </div>
 
-            
             <div>
               <label className="block text-sm font-medium text-gray-700">
                 Confirm Password
@@ -216,8 +215,9 @@ export default function UpdateProfileCard() {
             <button
               type="submit"
               className="mt-4 bg-teal-600 text-white px-4 py-2 rounded-md shadow hover:bg-teal-700"
+              disabled={loading}
             >
-              Change Password
+              {loading ? "Changing..." : "Change Password"}
             </button>
           </form>
         </div>

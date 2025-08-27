@@ -39,6 +39,21 @@ export const updateProfile = createAsyncThunk(
   }
 );
 
+export const changePassword = createAsyncThunk(
+  "user/changePassword",
+  async ({ oldPassword, newPassword }, { rejectWithValue }) => {
+    try {
+      const res = await api.put("/api/users/change-password", {
+        oldPassword,
+        newPassword,
+      });
+      return res.data.message; 
+    } catch (err) {
+      return rejectWithValue(err.response?.data?.message || "Password change failed");
+    }
+  }
+);
+
 export const getProfile = createAsyncThunk("user/getProfile", async (_, { rejectWithValue }) => {
   try {
     const res = await api.get("/api/users/me"); 
@@ -107,7 +122,21 @@ const userSlice = createSlice({
   .addCase(updateProfile.rejected, (state, action) => {
     state.loading = false;
     state.error = action.payload;
-  });
+  })
+  .addCase(changePassword.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+        state.success = null;
+      })
+      .addCase(changePassword.fulfilled, (state, action) => {
+        state.loading = false;
+        state.success = action.payload; // message from backend
+      })
+      .addCase(changePassword.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      });
+  
 
   },
 });

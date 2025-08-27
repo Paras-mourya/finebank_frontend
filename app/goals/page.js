@@ -52,19 +52,25 @@ export default function GoalsPage() {
     dispatch(getGoals());
   }, [dispatch]);
 
-  
+  // ✅ Create / Update
   const handleSubmit = () => {
+    if (!form.title || !form.targetAmount) return alert("Fill all fields");
+    const payload = {
+      ...form,
+      targetAmount: Number(form.targetAmount),
+      currentAmount: Number(form.currentAmount),
+    };
     if (editId) {
-      dispatch(updateGoal({ id: editId, data: form }));
+      dispatch(updateGoal({ id: editId, data: payload }));
     } else {
-      dispatch(createGoal(form));
+      dispatch(createGoal(payload));
     }
     setShowModal(false);
     setForm({ title: "", targetAmount: "", currentAmount: "", deadline: "" });
     setEditId(null);
   };
 
-  
+  // ✅ Chart Data
   const chartData = goals.map((goal) => ({
     name: goal.title,
     target: goal.targetAmount,
@@ -80,7 +86,7 @@ export default function GoalsPage() {
 
   return (
     <div className="min-h-screen bg-gray-50 p-6">
-      
+      {/* Header */}
       <div className="flex justify-between items-center mb-6">
         <h2 className="text-3xl font-bold bg-gradient-to-r from-teal-600 to-emerald-500 bg-clip-text text-transparent">
           Goals Dashboard
@@ -96,9 +102,9 @@ export default function GoalsPage() {
         </Button>
       </div>
 
-     
+      {/* Charts */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
-        
+        {/* Line Chart */}
         <Card className="shadow-lg rounded-xl hover:shadow-2xl transition">
           <CardHeader className="bg-gradient-to-r from-teal-50 to-emerald-50 rounded-t-xl">
             <CardTitle className="text-lg font-semibold text-gray-700">
@@ -107,9 +113,7 @@ export default function GoalsPage() {
           </CardHeader>
           <CardContent className="h-[300px]">
             {goals.length === 0 ? (
-              <p className="text-gray-400 text-center mt-20">
-                No goals yet...
-              </p>
+              <p className="text-gray-400 text-center mt-20">No goals yet...</p>
             ) : (
               <ResponsiveContainer width="100%" height="100%">
                 <LineChart data={chartData}>
@@ -117,25 +121,15 @@ export default function GoalsPage() {
                   <XAxis dataKey="name" />
                   <YAxis />
                   <Tooltip />
-                  <Line
-                    type="monotone"
-                    dataKey="current"
-                    stroke="#14b8a6"
-                    strokeWidth={2}
-                  />
-                  <Line
-                    type="monotone"
-                    dataKey="target"
-                    stroke="#94a3b8"
-                    strokeWidth={2}
-                  />
+                  <Line type="monotone" dataKey="current" stroke="#14b8a6" strokeWidth={2} />
+                  <Line type="monotone" dataKey="target" stroke="#94a3b8" strokeWidth={2} />
                 </LineChart>
               </ResponsiveContainer>
             )}
           </CardContent>
         </Card>
 
-        
+        {/* Pie Chart */}
         <Card className="shadow-lg rounded-xl hover:shadow-2xl transition">
           <CardHeader className="bg-gradient-to-r from-purple-50 to-indigo-50 rounded-t-xl">
             <CardTitle className="text-lg font-semibold text-gray-700">
@@ -148,20 +142,9 @@ export default function GoalsPage() {
             ) : (
               <ResponsiveContainer width="100%" height="100%">
                 <PieChart>
-                  <Pie
-                    data={pieData}
-                    cx="50%"
-                    cy="50%"
-                    outerRadius={100}
-                    fill="#8884d8"
-                    dataKey="value"
-                    label
-                  >
+                  <Pie data={pieData} cx="50%" cy="50%" outerRadius={100} fill="#8884d8" dataKey="value" label>
                     {pieData.map((_, index) => (
-                      <Cell
-                        key={`cell-${index}`}
-                        fill={COLORS[index % COLORS.length]}
-                      />
+                      <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                     ))}
                   </Pie>
                   <Legend />
@@ -173,10 +156,8 @@ export default function GoalsPage() {
         </Card>
       </div>
 
-      
-      <h3 className="text-xl font-semibold text-gray-700 mb-4">
-        Your Goals
-      </h3>
+      {/* Goals List */}
+      <h3 className="text-xl font-semibold text-gray-700 mb-4">Your Goals</h3>
       {loading ? (
         <p>Loading...</p>
       ) : goals.length === 0 ? (
@@ -184,15 +165,9 @@ export default function GoalsPage() {
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {goals.map((goal) => {
-            const progress = Math.min(
-              (goal.currentAmount / goal.targetAmount) * 100,
-              100
-            );
+            const progress = Math.min((goal.currentAmount / goal.targetAmount) * 100, 100);
             return (
-              <Card
-                key={goal._id}
-                className="shadow-md hover:shadow-xl transition rounded-xl border border-gray-100"
-              >
+              <Card key={goal._id} className="shadow-md hover:shadow-xl transition rounded-xl border border-gray-100">
                 <CardHeader className="pb-2">
                   <CardTitle className="text-gray-800">{goal.title}</CardTitle>
                 </CardHeader>
@@ -200,23 +175,17 @@ export default function GoalsPage() {
                   <p className="text-sm text-gray-500 mb-1">
                     Deadline: {goal.deadline?.slice(0, 10)}
                   </p>
-                  <p className="text-lg font-bold text-gray-900 mb-1">
-                    Current: ${goal.currentAmount}
-                  </p>
-                  <p className="text-gray-700 mb-3">
-                    Target: ${goal.targetAmount}
-                  </p>
+                  <p className="text-lg font-bold text-gray-900 mb-1">Current: ${goal.currentAmount}</p>
+                  <p className="text-gray-700 mb-3">Target: ${goal.targetAmount}</p>
 
-                  
+                  {/* Progress bar */}
                   <div className="w-full bg-gray-200 rounded-full h-2 mb-3">
                     <div
                       className="bg-gradient-to-r from-teal-400 to-emerald-500 h-2 rounded-full"
                       style={{ width: `${progress}%` }}
                     ></div>
                   </div>
-                  <p className="text-xs text-gray-500 mb-3">
-                    {progress.toFixed(0)}% achieved
-                  </p>
+                  <p className="text-xs text-gray-500 mb-3">{progress.toFixed(0)}% achieved</p>
 
                   <div className="flex gap-3">
                     <Button
@@ -251,7 +220,7 @@ export default function GoalsPage() {
         </div>
       )}
 
-      
+      {/* Add / Edit Modal */}
       <Dialog open={showModal} onOpenChange={setShowModal}>
         <DialogContent className="rounded-xl p-6 max-w-md">
           <DialogHeader>
@@ -271,33 +240,24 @@ export default function GoalsPage() {
               type="number"
               placeholder="Target Amount"
               value={form.targetAmount}
-              onChange={(e) =>
-                setForm({ ...form, targetAmount: e.target.value })
-              }
+              onChange={(e) => setForm({ ...form, targetAmount: e.target.value })}
               className="w-full border rounded-lg p-2 focus:ring-2 focus:ring-teal-500 outline-none"
             />
             <input
               type="number"
               placeholder="Current Amount"
               value={form.currentAmount}
-              onChange={(e) =>
-                setForm({ ...form, currentAmount: e.target.value })
-              }
+              onChange={(e) => setForm({ ...form, currentAmount: e.target.value })}
               className="w-full border rounded-lg p-2 focus:ring-2 focus:ring-teal-500 outline-none"
             />
             <input
               type="date"
               value={form.deadline}
-              onChange={(e) =>
-                setForm({ ...form, deadline: e.target.value })
-              }
+              onChange={(e) => setForm({ ...form, deadline: e.target.value })}
               className="w-full border rounded-lg p-2 focus:ring-2 focus:ring-teal-500 outline-none"
             />
 
-            <Button
-              className="w-full bg-teal-600 hover:bg-teal-700"
-              onClick={handleSubmit}
-            >
+            <Button className="w-full bg-teal-600 hover:bg-teal-700" onClick={handleSubmit}>
               {editId ? "Update Goal" : "Save Goal"}
             </Button>
           </div>

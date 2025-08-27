@@ -17,9 +17,10 @@ export default function ProfileCard() {
   if (!user) return <p className="p-4 text-gray-500">No profile data</p>
 
   return (
-    <Card className="bg-white shadow-xl rounded-2xl border border-gray-200 overflow-hidden">
+    <Card className="bg-white shadow-lg hover:shadow-2xl transition rounded-2xl border border-gray-100 overflow-hidden">
       
-      <CardHeader className="flex flex-col items-center bg-gradient-to-r from-teal-500 to-cyan-500 p-6">
+      {/* Header Section */}
+      <CardHeader className="flex flex-col items-center bg-gradient-to-r from-teal-600 to-cyan-500 p-6">
         <img
           src={user.avatar?.secure_url || "/default-avatar.png"}
           alt={user.name}
@@ -33,8 +34,9 @@ export default function ProfileCard() {
         </div>
       </CardHeader>
 
-      
+      {/* Content Section */}
       <CardContent className="p-6 grid grid-cols-2 gap-6">
+        {/* Phone */}
         <div className="flex flex-col items-center p-4 bg-gray-50 rounded-xl shadow-sm">
           <span className="text-sm text-gray-500">📞 Phone</span>
           <p className="text-base font-medium text-gray-800 mt-1">
@@ -42,6 +44,7 @@ export default function ProfileCard() {
           </p>
         </div>
 
+        {/* Joined Date */}
         <div className="flex flex-col items-center p-4 bg-gray-50 rounded-xl shadow-sm">
           <span className="text-sm text-gray-500">📅 Joined</span>
           <p className="text-base font-medium text-gray-800 mt-1">
@@ -49,9 +52,10 @@ export default function ProfileCard() {
           </p>
         </div>
 
+        {/* Role */}
         <div className="flex flex-col items-center p-4 bg-gray-50 rounded-xl shadow-sm col-span-2">
           <span className="text-sm text-gray-500">🌐 Role</span>
-          <p className="text-base font-medium text-gray-800 mt-1">
+          <p className="text-base font-medium text-gray-800 mt-1 capitalize">
             {user.role || "Customer"}
           </p>
         </div>

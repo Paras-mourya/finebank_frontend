@@ -1,0 +1,13 @@
+// utils/socket.js
+import { io } from "socket.io-client";
+
+const socket = io(
+  process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:4000",
+  {
+    path: "/socket.io/",
+    transports: ["websocket"],
+    withCredentials: true,
+  }
+);
+
+export default socket;

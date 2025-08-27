@@ -44,11 +44,9 @@ export default function TransactionsPage() {
     dispatch(getTransactions());
   }, [dispatch]);
 
-  
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
-
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -70,7 +68,6 @@ export default function TransactionsPage() {
     setOpen(false);
   };
 
-  
   const filteredTransactions = transactions.filter((t) => {
     if (filter === "all") return true;
     if (filter === "revenue") return t.type === "income";
@@ -79,12 +76,13 @@ export default function TransactionsPage() {
   });
 
   return (
-    <div className="p-6 space-y-6 bg-gray-50 min-h-screen">
-      
-      <h2 className="text-2xl font-bold text-gray-800">Recent Transactions</h2>
+    <div className="p-4 sm:p-6 space-y-6 bg-gray-50 min-h-screen">
+      <h2 className="text-xl sm:text-2xl font-bold text-gray-800">
+        Recent Transactions
+      </h2>
 
-      
-      <div className="flex gap-6 border-b pb-2">
+      {/* Filter Tabs */}
+      <div className="flex flex-wrap gap-4 sm:gap-6 border-b pb-2">
         {["all", "revenue", "expenses"].map((tab) => (
           <button
             key={tab}
@@ -99,8 +97,10 @@ export default function TransactionsPage() {
           </button>
         ))}
       </div>
-      <Card className="shadow-lg rounded-xl p-4">
-        <table className="w-full text-sm">
+
+      {/* Table Wrapper for Mobile Scroll */}
+      <Card className="shadow-lg rounded-xl p-4 overflow-x-auto">
+        <table className="w-full text-sm min-w-[600px]">
           <thead className="text-left border-b">
             <tr className="text-gray-600">
               <th className="p-2">Items</th>
@@ -140,7 +140,7 @@ export default function TransactionsPage() {
                   >
                     ${t.amount.toFixed(2)}
                   </td>
-                  <td className="p-2 flex gap-2">
+                  <td className="p-2 flex flex-col sm:flex-row gap-2">
                     <Button
                       variant="outline"
                       size="sm"
@@ -175,11 +175,13 @@ export default function TransactionsPage() {
         </table>
       </Card>
 
-      
+      {/* Dialog Form */}
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>{editId ? "Update Transaction" : "Add Transaction"}</DialogTitle>
+            <DialogTitle>
+              {editId ? "Update Transaction" : "Add Transaction"}
+            </DialogTitle>
           </DialogHeader>
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
@@ -189,15 +191,12 @@ export default function TransactionsPage() {
                 value={form.title}
                 onChange={handleChange}
                 required
+                className="w-full"
               />
             </div>
             <div>
               <Label>Shop</Label>
-              <Input
-                name="shop"
-                value={form.shop}
-                onChange={handleChange}
-              />
+              <Input name="shop" value={form.shop} onChange={handleChange} className="w-full" />
             </div>
             <div>
               <Label>Date</Label>
@@ -207,6 +206,7 @@ export default function TransactionsPage() {
                 value={form.date}
                 onChange={handleChange}
                 required
+                className="w-full"
               />
             </div>
             <div>
@@ -241,6 +241,7 @@ export default function TransactionsPage() {
                 name="category"
                 value={form.category}
                 onChange={handleChange}
+                className="w-full"
               />
             </div>
             <div>
@@ -251,6 +252,7 @@ export default function TransactionsPage() {
                 value={form.amount}
                 onChange={handleChange}
                 required
+                className="w-full"
               />
             </div>
             <DialogFooter>
@@ -262,9 +264,9 @@ export default function TransactionsPage() {
         </DialogContent>
       </Dialog>
 
-      
+      {/* Add Button */}
       <Button
-        className="bg-teal-600 hover:bg-teal-700"
+        className="bg-teal-600 hover:bg-teal-700 w-full sm:w-auto"
         onClick={() => {
           setEditId(null);
           setForm({

@@ -3,27 +3,57 @@ import api from "@api/api";
 
 api.defaults.withCredentials = true;
 
+// ✅ CRUD Thunks
+export const getExpenses = createAsyncThunk("expenses/getAll", async () => {
+  const res = await api.get("/api/expenses");
+  return res.data.expenses;
+});
 
-export const getExpensesComparison = createAsyncThunk(
-  "expenses/comparison",
-  async () => {
-    const res = await api.get("/api/expenses/comparison");
-    return res.data.data;
-  }
-);
+export const createExpense = createAsyncThunk("expenses/create", async (expenseData, { dispatch }) => {
+  const res = await api.post("/api/expenses", expenseData);
 
+  // CRUD ke baad analytics reload
+  dispatch(getExpensesComparison());
+  dispatch(getExpensesBreakdown());
 
-export const getExpensesBreakdown = createAsyncThunk(
-  "expenses/breakdown",
-  async () => {
-    const res = await api.get("/api/expenses/breakdown");
-    return res.data.data;
-  }
-);
+  return res.data.expense;
+});
+
+export const updateExpense = createAsyncThunk("expenses/update", async ({ id, updatedData }, { dispatch }) => {
+  const res = await api.put(`/api/expenses/${id}`, updatedData);
+
+  // CRUD ke baad analytics reload
+  dispatch(getExpensesComparison());
+  dispatch(getExpensesBreakdown());
+
+  return res.data.expense;
+});
+
+export const deleteExpense = createAsyncThunk("expenses/delete", async (id, { dispatch }) => {
+  await api.delete(`/api/expenses/${id}`);
+
+  // CRUD ke baad analytics reload
+  dispatch(getExpensesComparison());
+  dispatch(getExpensesBreakdown());
+
+  return id; 
+});
+
+// ✅ Analytics Thunks
+export const getExpensesComparison = createAsyncThunk("expenses/comparison", async () => {
+  const res = await api.get("/api/expenses/analytics/comparison");  // ✅ fixed
+  return res.data.data;
+});
+
+export const getExpensesBreakdown = createAsyncThunk("expenses/breakdown", async () => {
+  const res = await api.get("/api/expenses/analytics/breakdown");   // ✅ fixed
+  return res.data.data;
+});
 
 const expenseSlice = createSlice({
   name: "expenses",
   initialState: {
+    expenses: [],
     comparison: [],
     breakdown: [],
     loading: false,
@@ -32,30 +62,43 @@ const expenseSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      
-      .addCase(getExpensesComparison.pending, (state) => {
+      // ✅ Get all expenses
+      .addCase(getExpenses.pending, (state) => {
         state.loading = true;
       })
-      .addCase(getExpensesComparison.fulfilled, (state, action) => {
+      .addCase(getExpenses.fulfilled, (state, action) => {
         state.loading = false;
-        state.comparison = action.payload;
+        state.expenses = action.payload;
       })
-      .addCase(getExpensesComparison.rejected, (state, action) => {
+      .addCase(getExpenses.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message;
       })
 
-      
-      .addCase(getExpensesBreakdown.pending, (state) => {
-        state.loading = true;
+      // ✅ Create expense
+      .addCase(createExpense.fulfilled, (state, action) => {
+        state.expenses.unshift(action.payload); // newest on top
       })
+
+      // ✅ Update expense
+      .addCase(updateExpense.fulfilled, (state, action) => {
+        const index = state.expenses.findIndex((e) => e._id === action.payload._id);
+        if (index !== -1) state.expenses[index] = action.payload;
+      })
+
+      // ✅ Delete expense
+      .addCase(deleteExpense.fulfilled, (state, action) => {
+        state.expenses = state.expenses.filter((e) => e._id !== action.payload);
+      })
+
+      // ✅ Comparison
+      .addCase(getExpensesComparison.fulfilled, (state, action) => {
+        state.comparison = action.payload;
+      })
+
+      // ✅ Breakdown
       .addCase(getExpensesBreakdown.fulfilled, (state, action) => {
-        state.loading = false;
         state.breakdown = action.payload;
-      })
-      .addCase(getExpensesBreakdown.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action.error.message;
       });
   },
 });
