@@ -69,7 +69,7 @@ export default function Navbar({ onToggleSidebar }) {
   };
 
   return (
-    <header className="sticky top-0 z-50 bg-white border-b border-gray-200 px-6 py-3 flex items-center justify-between">
+    <header className="sticky top-0 z-50 bg-white border-b border-gray-200 px-4 lg:px-6 py-3 flex items-center justify-between">
       {/* 🔹 Left Section */}
       <div className="flex items-center gap-3">
         {/* Hamburger button (only mobile) */}
@@ -80,7 +80,8 @@ export default function Navbar({ onToggleSidebar }) {
           <Menu className="h-6 w-6" />
         </button>
 
-        <div className="flex flex-col">
+        {/* Greeting (hide on mobile, show on lg+) */}
+        <div className="hidden lg:flex flex-col">
           <h1 className="text-lg font-semibold text-gray-800">
             Hello {loading ? "..." : user?.name || "Guest"}
           </h1>
@@ -90,8 +91,8 @@ export default function Navbar({ onToggleSidebar }) {
 
       {/* 🔹 Right Section */}
       <div className="flex items-center gap-4">
-        {/* Search Input */}
-        <div className="relative">
+        {/* Search Input (hidden on small screens, show from md+) */}
+        <div className="relative  md:block">
           <input
             type="text"
             placeholder="Search pages..."
