@@ -98,82 +98,144 @@ export default function TransactionsPage() {
         ))}
       </div>
 
-      {/* Table Wrapper for Mobile Scroll */}
-      <Card className="shadow-lg rounded-xl p-4 overflow-x-auto">
-        <table className="w-full text-sm min-w-[600px]">
-          <thead className="text-left border-b">
-            <tr className="text-gray-600">
-              <th className="p-2">Items</th>
-              <th className="p-2">Shop Name</th>
-              <th className="p-2">Date</th>
-              <th className="p-2">Payment Method</th>
-              <th className="p-2">Amount</th>
-              <th className="p-2">Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            {loading ? (
-              <tr>
-                <td colSpan="6" className="text-center p-4">
-                  Loading...
-                </td>
+      {/* Desktop Table */}
+      <div className="hidden md:block">
+        <Card className="shadow-lg rounded-xl p-4 overflow-x-auto">
+          <table className="w-full text-sm min-w-[600px]">
+            <thead className="text-left border-b">
+              <tr className="text-gray-600">
+                <th className="p-2">Items</th>
+                <th className="p-2">Shop Name</th>
+                <th className="p-2">Date</th>
+                <th className="p-2">Payment Method</th>
+                <th className="p-2">Amount</th>
+                <th className="p-2">Action</th>
               </tr>
-            ) : filteredTransactions.length === 0 ? (
-              <tr>
-                <td colSpan="6" className="text-center p-4 text-gray-500">
-                  No transactions found.
-                </td>
-              </tr>
-            ) : (
-              filteredTransactions.map((t) => (
-                <tr key={t._id} className="border-b hover:bg-gray-50">
-                  <td className="p-2 font-medium">{t.title}</td>
-                  <td className="p-2">{t.shop}</td>
-                  <td className="p-2">
-                    {new Date(t.date).toLocaleDateString()}
-                  </td>
-                  <td className="p-2">{t.method}</td>
-                  <td
-                    className={`p-2 font-bold ${
-                      t.type === "income" ? "text-green-600" : "text-red-600"
-                    }`}
-                  >
-                    ${t.amount.toFixed(2)}
-                  </td>
-                  <td className="p-2 flex flex-col sm:flex-row gap-2">
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      onClick={() => {
-                        setForm({
-                          title: t.title,
-                          shop: t.shop,
-                          date: t.date.slice(0, 10),
-                          method: t.method,
-                          type: t.type,
-                          category: t.category || "",
-                          amount: t.amount,
-                        });
-                        setEditId(t._id);
-                        setOpen(true);
-                      }}
-                    >
-                      Edit
-                    </Button>
-                    <Button
-                      variant="destructive"
-                      size="sm"
-                      onClick={() => dispatch(deleteTransaction(t._id))}
-                    >
-                      Delete
-                    </Button>
+            </thead>
+            <tbody>
+              {loading ? (
+                <tr>
+                  <td colSpan="6" className="text-center p-4">
+                    Loading...
                   </td>
                 </tr>
-              ))
-            )}
-          </tbody>
-        </table>
-      </Card>
+              ) : filteredTransactions.length === 0 ? (
+                <tr>
+                  <td colSpan="6" className="text-center p-4 text-gray-500">
+                    No transactions found.
+                  </td>
+                </tr>
+              ) : (
+                filteredTransactions.map((t) => (
+                  <tr key={t._id} className="border-b hover:bg-gray-50">
+                    <td className="p-2 font-medium">{t.title}</td>
+                    <td className="p-2">{t.shop}</td>
+                    <td className="p-2">
+                      {new Date(t.date).toLocaleDateString()}
+                    </td>
+                    <td className="p-2">{t.method}</td>
+                    <td
+                      className={`p-2 font-bold ${
+                        t.type === "income" ? "text-green-600" : "text-red-600"
+                      }`}
+                    >
+                      ${t.amount.toFixed(2)}
+                    </td>
+                    <td className="p-2 flex gap-2">
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => {
+                          setForm({
+                            title: t.title,
+                            shop: t.shop,
+                            date: t.date.slice(0, 10),
+                            method: t.method,
+                            type: t.type,
+                            category: t.category || "",
+                            amount: t.amount,
+                          });
+                          setEditId(t._id);
+                          setOpen(true);
+                        }}
+                      >
+                        Edit
+                      </Button>
+                      <Button
+                        variant="destructive"
+                        size="sm"
+                        onClick={() => dispatch(deleteTransaction(t._id))}
+                      >
+                        Delete
+                      </Button>
+                    </td>
+                  </tr>
+                ))
+              )}
+            </tbody>
+          </table>
+        </Card>
+      </div>
+
+      {/* Mobile Cards */}
+      <div className="grid gap-4 md:hidden">
+        {loading ? (
+          <p className="text-center text-gray-500">Loading...</p>
+        ) : filteredTransactions.length === 0 ? (
+          <p className="text-center text-gray-500">No transactions found.</p>
+        ) : (
+          filteredTransactions.map((t) => (
+            <Card
+              key={t._id}
+              className="p-4 shadow-md rounded-xl space-y-2 bg-white"
+            >
+              <div className="flex justify-between">
+                <h3 className="font-semibold text-gray-800">{t.title}</h3>
+                <span
+                  className={`font-bold ${
+                    t.type === "income" ? "text-green-600" : "text-red-600"
+                  }`}
+                >
+                  ${t.amount.toFixed(2)}
+                </span>
+              </div>
+              <p className="text-sm text-gray-600">Shop: {t.shop}</p>
+              <p className="text-sm text-gray-600">
+                Date: {new Date(t.date).toLocaleDateString()}
+              </p>
+              <p className="text-sm text-gray-600">Method: {t.method}</p>
+              <div className="flex gap-2 pt-2">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => {
+                    setForm({
+                      title: t.title,
+                      shop: t.shop,
+                      date: t.date.slice(0, 10),
+                      method: t.method,
+                      type: t.type,
+                      category: t.category || "",
+                      amount: t.amount,
+                    });
+                    setEditId(t._id);
+                    setOpen(true);
+                  }}
+                >
+                  Edit
+                </Button>
+                <Button
+                  variant="destructive"
+                  size="sm"
+                  onClick={() => dispatch(deleteTransaction(t._id))}
+                >
+                  Delete
+                </Button>
+              </div>
+            </Card>
+          ))
+        )}
+      </div>
 
       {/* Dialog Form */}
       <Dialog open={open} onOpenChange={setOpen}>
@@ -196,7 +258,12 @@ export default function TransactionsPage() {
             </div>
             <div>
               <Label>Shop</Label>
-              <Input name="shop" value={form.shop} onChange={handleChange} className="w-full" />
+              <Input
+                name="shop"
+                value={form.shop}
+                onChange={handleChange}
+                className="w-full"
+              />
             </div>
             <div>
               <Label>Date</Label>
