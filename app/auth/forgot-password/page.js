@@ -1,6 +1,9 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
+import { useDispatch, useSelector } from "react-redux"
+import { forgotPassword, clearForgotError, clearForgotSuccess } from "@/redux/slice/userSlice"
+
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -9,26 +12,38 @@ import Link from "next/link"
 
 export default function ForgotPasswordPage() {
   const [email, setEmail] = useState("")
-  const [isSubmitted, setIsSubmitted] = useState(false)
+  const dispatch = useDispatch()
+
+  // Redux state
+  const { loading, error, successMessage } = useSelector(
+  (state) => state.user
+);
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    
-    console.log("Password reset requested for:", email)
-    setIsSubmitted(true)
+    dispatch(forgotPassword(email))
   }
 
-  if (isSubmitted) {
+  // Reset error/success on unmount or re-render
+  useEffect(() => {
+    return () => {
+      dispatch(clearForgotError())
+      dispatch(clearForgotSuccess())
+    }
+  }, [dispatch])
+
+  // ✅ If successMessage available then show success screen
+  if (successMessage) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center p-4">
         <Card className="w-full max-w-md">
           <CardHeader className="text-center">
             <div className="text-4xl font-bold text-primary mb-4">FINEbank.IO</div>
             <CardTitle className="text-2xl">Check your email</CardTitle>
-            <CardDescription>We've sent a password reset link to {email}</CardDescription>
+            <CardDescription>{successMessage} ({email})</CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
-            <Link href="/auth">
+            <Link href="/auth/login">
               <Button variant="link" className="w-full text-muted-foreground hover:text-primary">
                 Back to login
               </Button>
@@ -63,13 +78,20 @@ export default function ForgotPasswordPage() {
               />
             </div>
 
-            <Button type="submit" className="w-full bg-primary hover:bg-primary/90">
-              Password Reset
+            <Button
+              type="submit"
+              disabled={loading}
+              className="w-full bg-primary hover:bg-primary/90"
+            >
+              {loading ? "Sending..." : "Password Reset"}
             </Button>
           </form>
 
+          {/* error show karega agar API se aaye */}
+          {error && <p className="text-red-500 text-center">{error}</p>}
+
           <div className="text-center">
-            <Link href="/auth">
+            <Link href="/auth/login">
               <Button variant="link" className="text-muted-foreground hover:text-primary">
                 Back to login
               </Button>
