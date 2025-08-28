@@ -1,7 +1,7 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Providers from "@/redux/Providers";
-import ClientWrapper from "@/components/ClientWrapper"; // new wrapper
+ // new wrapper
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -23,7 +23,7 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <Providers>
-          <ClientWrapper>{children}</ClientWrapper>
+          {children}
         </Providers>
       </body>
     </html>
