@@ -52,14 +52,18 @@ export const forgotPassword = createAsyncThunk("auth/forgotPassword", async (ema
   }
 });
 
-export const resetPassword = createAsyncThunk("auth/resetPassword", async ({ resetToken, password }, { rejectWithValue }) => {
-  try {
-    const res = await api.post(`/api/users/reset/${resetToken}`, { password });
-    return { message: res.data.message || res.data.messgae || "Password reset successful!" }; // backend typo handle
-  } catch (err) {
-    return rejectWithValue(err.response?.data?.message || "Reset password failed");
+export const resetPassword = createAsyncThunk(
+  "auth/resetPassword",
+  async ({ resetToken, password }, { rejectWithValue }) => {
+    try {
+      const res = await api.post(`/api/users/reset/${resetToken}`, { password });
+      return { message: res.data.message || "Password reset successful!" };
+    } catch (err) {
+      return rejectWithValue(err.response?.data?.message || "Reset password failed");
+    }
   }
-});
+);
+
 
 export const getProfile = createAsyncThunk("user/getProfile", async (_, { rejectWithValue }) => {
   try {

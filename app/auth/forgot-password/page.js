@@ -15,7 +15,7 @@ export default function ForgotPasswordPage() {
   const dispatch = useDispatch()
 
   // Redux state
-  const { loading, error, successMessage } = useSelector(
+  const { loading, error, success } = useSelector(
   (state) => state.user
 );
 
@@ -33,14 +33,14 @@ export default function ForgotPasswordPage() {
   }, [dispatch])
 
   // ✅ If successMessage available then show success screen
-  if (successMessage) {
+  if (success) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center p-4">
         <Card className="w-full max-w-md">
           <CardHeader className="text-center">
             <div className="text-4xl font-bold text-primary mb-4">FINEbank.IO</div>
             <CardTitle className="text-2xl">Check your email</CardTitle>
-            <CardDescription>{successMessage} ({email})</CardDescription>
+            <CardDescription>{success} ({email})</CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
             <Link href="/auth/login">
