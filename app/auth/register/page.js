@@ -53,7 +53,7 @@ export default function SignupPage() {
   const handleGoogleSignup = () => {
   console.log("Google signup clicked");
   const googleAuthUrl = `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/users/auth/google`;
-  console.log("👉 Redirecting to:", googleAuthUrl);
+  console.log(" Redirecting to:", googleAuthUrl);
   window.location.href = googleAuthUrl;
 };
 

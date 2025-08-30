@@ -17,13 +17,16 @@ export const getBillById = createAsyncThunk("bills/getById", async (id) => {
 
 // ✅ CREATE Bill
 export const createBill = createAsyncThunk("bills/create", async (billData) => {
-  const res = await api.post("/api/bills", billData);
+  const res = await api.post("/api/bills", billData, {
+    headers: { "Content-Type": "multipart/form-data" },
+  });
   return res.data.bill;
 });
-
 // ✅ UPDATE Bill
 export const updateBill = createAsyncThunk("bills/update", async ({ id, data }) => {
-  const res = await api.put(`/api/bills/${id}`, data);
+  const res = await api.put(`/api/bills/${id}`, data, {
+    headers: { "Content-Type": "multipart/form-data" },
+  });
   return res.data.bill;
 });
 

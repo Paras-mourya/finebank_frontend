@@ -9,46 +9,64 @@ export const getExpenses = createAsyncThunk("expenses/getAll", async () => {
   return res.data.expenses;
 });
 
-export const createExpense = createAsyncThunk("expenses/create", async (expenseData, { dispatch }) => {
-  const res = await api.post("/api/expenses", expenseData);
+export const createExpense = createAsyncThunk(
+  "expenses/create",
+  async (expenseData, { dispatch, getState }) => {
+    const res = await api.post("/api/expenses", expenseData);
 
-  // CRUD ke baad analytics reload
-  dispatch(getExpensesComparison());
-  dispatch(getExpensesBreakdown());
+    // CRUD ke baad analytics reload with current filter
+    const filter = getState().expenses.filter;
+    dispatch(getExpensesComparison(filter));
+    dispatch(getExpensesBreakdown(filter));
 
-  return res.data.expense;
-});
+    return res.data.expense;
+  }
+);
 
-export const updateExpense = createAsyncThunk("expenses/update", async ({ id, updatedData }, { dispatch }) => {
-  const res = await api.put(`/api/expenses/${id}`, updatedData);
+export const updateExpense = createAsyncThunk(
+  "expenses/update",
+  async ({ id, updatedData }, { dispatch, getState }) => {
+    const res = await api.put(`/api/expenses/${id}`, updatedData);
 
-  // CRUD ke baad analytics reload
-  dispatch(getExpensesComparison());
-  dispatch(getExpensesBreakdown());
+    // CRUD ke baad analytics reload with current filter
+    const filter = getState().expenses.filter;
+    dispatch(getExpensesComparison(filter));
+    dispatch(getExpensesBreakdown(filter));
 
-  return res.data.expense;
-});
+    return res.data.expense;
+  }
+);
 
-export const deleteExpense = createAsyncThunk("expenses/delete", async (id, { dispatch }) => {
-  await api.delete(`/api/expenses/${id}`);
+export const deleteExpense = createAsyncThunk(
+  "expenses/delete",
+  async (id, { dispatch, getState }) => {
+    await api.delete(`/api/expenses/${id}`);
 
-  // CRUD ke baad analytics reload
-  dispatch(getExpensesComparison());
-  dispatch(getExpensesBreakdown());
+    // CRUD ke baad analytics reload with current filter
+    const filter = getState().expenses.filter;
+    dispatch(getExpensesComparison(filter));
+    dispatch(getExpensesBreakdown(filter));
 
-  return id; 
-});
+    return id;
+  }
+);
 
-// ✅ Analytics Thunks
-export const getExpensesComparison = createAsyncThunk("expenses/comparison", async () => {
-  const res = await api.get("/api/expenses/analytics/comparison");  // ✅ fixed
-  return res.data.data;
-});
+// ✅ Analytics Thunks with filter param
+export const getExpensesComparison = createAsyncThunk(
+  "expenses/comparison",
+  async (filter = "monthly") => {
+    const res = await api.get(`/api/expenses/analytics/comparison?filter=${filter}`);
+    return res.data.data;
+  }
+);
 
-export const getExpensesBreakdown = createAsyncThunk("expenses/breakdown", async () => {
-  const res = await api.get("/api/expenses/analytics/breakdown");   // ✅ fixed
-  return res.data.data;
-});
+export const getExpensesBreakdown = createAsyncThunk(
+  "expenses/breakdown",
+  async (filter = "monthly") => {
+    const res = await api.get(`/api/expenses/analytics/breakdown?filter=${filter}`);
+    return res.data.data;
+  }
+);
 
 const expenseSlice = createSlice({
   name: "expenses",
@@ -56,10 +74,15 @@ const expenseSlice = createSlice({
     expenses: [],
     comparison: [],
     breakdown: [],
+    filter: "monthly", // ✅ default filter
     loading: false,
     error: null,
   },
-  reducers: {},
+  reducers: {
+    setFilter: (state, action) => {
+      state.filter = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder
       // ✅ Get all expenses
@@ -103,4 +126,5 @@ const expenseSlice = createSlice({
   },
 });
 
+export const { setFilter } = expenseSlice.actions;
 export default expenseSlice.reducer;

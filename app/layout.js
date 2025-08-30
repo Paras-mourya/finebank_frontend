@@ -1,7 +1,7 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Providers from "@/redux/Providers";
- // new wrapper
+import { ThemeProvider } from "@/components/ThemeProvider"; // 👈 ThemeProvider import
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -20,10 +20,16 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+    <html lang="en" suppressHydrationWarning>
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen bg-background text-foreground`}
+      >
         <Providers>
-          {children}
+          <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
+            <div className="min-h-screen bg-background text-foreground">
+              {children}
+            </div>
+          </ThemeProvider>
         </Providers>
       </body>
     </html>

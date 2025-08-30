@@ -28,7 +28,7 @@ export default function LoginPage() {
 
     if (res.meta.requestStatus === "fulfilled") {
       await dispatch(getProfile());
-      router.push("/dashboard");
+      router.push("/dashboard/overview");
     }
   };
 
@@ -60,6 +60,7 @@ export default function LoginPage() {
                 placeholder="johndoe@email.com"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
+
                 required
               />
             </div>
@@ -121,7 +122,7 @@ export default function LoginPage() {
               <div className="w-full border-t" />
             </div>
             <div className="relative flex justify-center text-sm">
-              <span className="px-2 bg-white text-muted-foreground">or sign in with</span>
+              <span className="px-2 bg-card text-muted-foreground">or sign in with</span>
             </div>
           </div>
 

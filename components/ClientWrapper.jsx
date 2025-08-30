@@ -1,31 +1,31 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 import Loader from "./Loader";
-import  SmoothCursor  from "./ui/smooth-cursor";
 
 export default function ClientWrapper({ children }) {
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
+  const pathname = usePathname();
 
   useEffect(() => {
-    async function fetchData() {
-      try {
-        // simulate API call (replace with actual API)
-        await new Promise((resolve) => setTimeout(resolve, 4000));
-      } finally {
-        setLoading(false);
-      }
-    }
+    setLoading(true);
 
-    fetchData();
-  }, []);
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 500); // smoother UX
 
-  if (loading) return <Loader />;
+    return () => clearTimeout(timer);
+  }, [pathname]);
 
-  return (
-    <>
-      <SmoothCursor />
-      {children}
-    </>
-  );
+  if (loading) {
+    return (
+      <div className="relative flex items-center justify-center h-[calc(100vh-4rem)]">
+        {/* 4rem = Navbar ki height */}
+        <Loader />
+      </div>
+    );
+  }
+
+  return <>{children}</>;
 }
