@@ -34,7 +34,7 @@ export default function LoginPage() {
 
   const handleGoogleSignIn = () => {
     const googleAuthUrl = `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/users/auth/google`;
-    console.log("👉 Redirecting to:", googleAuthUrl);
+    console.log(" Redirecting to:", googleAuthUrl);
     window.location.href = googleAuthUrl;
   };
 
@@ -42,16 +42,16 @@ export default function LoginPage() {
     <div className="min-h-screen bg-background flex items-center justify-center p-4">
       <Card className="w-full max-w-md shadow-lg">
         <CardContent className="p-8 space-y-8">
-          {/* Logo / Branding */}
+        
           <div className="text-center">
             <h1 className="text-3xl font-bold text-primary">
               FINE<span className="text-foreground">bank</span>.IO
             </h1>
           </div>
 
-          {/* Login Form */}
+         
           <form onSubmit={handleSubmit} className="space-y-6">
-            {/* Email */}
+           
             <div className="space-y-2">
               <Label htmlFor="email">Email Address</Label>
               <Input
@@ -65,12 +65,12 @@ export default function LoginPage() {
               />
             </div>
 
-            {/* Password */}
+        
             <div className="space-y-2">
               <div className="flex items-center justify-between">
                 <Label htmlFor="password">Password</Label>
 
-                {/* ✅ Forgot Password Link */}
+               
                 <Link href="/auth/forgot-password" className="text-sm text-primary hover:underline">
                   Forgot Password?
                 </Link>
@@ -94,7 +94,7 @@ export default function LoginPage() {
               </div>
             </div>
 
-            {/* Keep Signed In */}
+           
             <div className="flex items-center space-x-2">
               <Checkbox
                 id="keep-signed-in"
@@ -106,17 +106,17 @@ export default function LoginPage() {
               </Label>
             </div>
 
-            {/* Login Button */}
+           
             <Button type="submit" className="w-full" disabled={loading}>
               {loading ? "Logging in..." : "Login"}
             </Button>
           </form>
 
-          {/* Error & Success */}
+         
           {error && <p className="text-red-500 text-sm">{error}</p>}
           {user && <p className="text-green-600 text-sm">Welcome {user.name} 🎉</p>}
 
-          {/* Divider */}
+          
           <div className="relative">
             <div className="absolute inset-0 flex items-center">
               <div className="w-full border-t" />
@@ -126,7 +126,7 @@ export default function LoginPage() {
             </div>
           </div>
 
-          {/* Google Sign In */}
+
           <Button
             type="button"
             variant="outline"
@@ -154,7 +154,7 @@ export default function LoginPage() {
             <span>Continue with Google</span>
           </Button>
 
-          {/* Signup Link */}
+         
           <p className="text-center text-sm text-muted-foreground mt-6">
             Don't have an account?{" "}
             <Link href="/auth/register" className="text-primary hover:underline font-medium">

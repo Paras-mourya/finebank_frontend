@@ -205,7 +205,7 @@ export default function TransactionsPage() {
         </Card>
       </div>
 
-      {/* Mobile Cards */}
+     
       <div className="grid gap-4 md:hidden">
         {loading ? (
           <p className="text-center text-muted-foreground">Loading...</p>

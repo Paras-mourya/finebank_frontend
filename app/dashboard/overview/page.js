@@ -36,21 +36,21 @@ import {
 export default function DashboardPage() {
   const dispatch = useDispatch()
 
-  // Redux states
+ 
   const { list: transactions, loading: txLoading } = useSelector((s) => s.transactions)
   const { bills } = useSelector((s) => s.bills)
   const { breakdown, comparison, loading } = useSelector((s) => s.expenses)
   const { accounts } = useSelector((s) => s.accounts)
   const { goals } = useSelector((s) => s.goals)
 
-  // Local states
+  
   const [showTargetModal, setShowTargetModal] = useState(false)
   const [targetAmount, setTargetAmount] = useState("500000")
   const [presentAmount, setPresentAmount] = useState("")
   const [filter, setFilter] = useState("all")
   const [weeklyData, setWeeklyData] = useState([])
 
-  // Load data on mount
+  
   useEffect(() => {
     dispatch(getTransactions())
     dispatch(getSummary())
@@ -60,7 +60,7 @@ export default function DashboardPage() {
     dispatch(getExpensesComparison("weekly"))
   }, [dispatch])
 
-  // Format weekly comparison data for chart
+  
   useEffect(() => {
     if (comparison.length > 0) {
       const lastTwo = comparison.slice(-2)
@@ -83,13 +83,13 @@ export default function DashboardPage() {
     <div className="flex-1 overflow-y-auto rounded-lg p-4 sm:p-6 bg-white dark:bg-gray-900 ">
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
 
-        {/* Left Section */}
+       
         <div className="lg:col-span-3 space-y-6">
 
-          {/* Balance + Goals row */}
+         
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
 
-            {/* Total Balance */}
+            
             <Card className="bg-card text-card-foreground shadow-sm">
               <CardContent className="p-4 sm:p-6">
                 <p className="text-sm text-muted-foreground">Total Balance</p>
@@ -128,7 +128,7 @@ export default function DashboardPage() {
               </CardContent>
             </Card>
 
-            {/* Goals */}
+            
             <Card className="bg-card text-card-foreground">
               <CardHeader>
                 <CardTitle>Goals</CardTitle>
@@ -164,10 +164,10 @@ export default function DashboardPage() {
             </Card>
           </div>
 
-          {/* Transactions + Weekly Stats */}
+         
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             
-            {/* Transactions */}
+           
             <Card className="bg-card text-card-foreground">
               <CardHeader className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-0">
                 <CardTitle>Recent Transactions</CardTitle>
@@ -223,7 +223,7 @@ export default function DashboardPage() {
               </CardContent>
             </Card>
 
-            {/* Weekly Stats */}
+         
             <Card className="bg-card text-card-foreground">
               <CardHeader>
                 <CardTitle>Weekly Statistics</CardTitle>
@@ -248,7 +248,7 @@ export default function DashboardPage() {
             </Card>
           </div>
 
-          {/* Expense Breakdown */}
+         
           <Card className="bg-card text-card-foreground">
             <CardHeader>
               <CardTitle>Expenses Breakdown</CardTitle>
@@ -276,7 +276,7 @@ export default function DashboardPage() {
           </Card>
         </div>
 
-        {/* Right Section */}
+       
         <div className="space-y-6">
           <Card className="bg-card text-card-foreground">
             <CardHeader>
@@ -309,7 +309,7 @@ export default function DashboardPage() {
           </Card>
         </div>
 
-        {/* Goal Modal */}
+       
         {showTargetModal && (
           <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 px-4">
             <div className="bg-card text-card-foreground p-6 rounded-lg w-full max-w-md shadow-lg">

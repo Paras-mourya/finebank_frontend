@@ -3,7 +3,7 @@ import api from "@api/api";
 
 api.defaults.withCredentials = true;
 
-// ✅ CRUD Thunks
+
 export const getExpenses = createAsyncThunk("expenses/getAll", async () => {
   const res = await api.get("/api/expenses");
   return res.data.expenses;
@@ -14,7 +14,7 @@ export const createExpense = createAsyncThunk(
   async (expenseData, { dispatch, getState }) => {
     const res = await api.post("/api/expenses", expenseData);
 
-    // CRUD ke baad analytics reload with current filter
+    
     const filter = getState().expenses.filter;
     dispatch(getExpensesComparison(filter));
     dispatch(getExpensesBreakdown(filter));
@@ -28,7 +28,7 @@ export const updateExpense = createAsyncThunk(
   async ({ id, updatedData }, { dispatch, getState }) => {
     const res = await api.put(`/api/expenses/${id}`, updatedData);
 
-    // CRUD ke baad analytics reload with current filter
+    
     const filter = getState().expenses.filter;
     dispatch(getExpensesComparison(filter));
     dispatch(getExpensesBreakdown(filter));
@@ -42,7 +42,7 @@ export const deleteExpense = createAsyncThunk(
   async (id, { dispatch, getState }) => {
     await api.delete(`/api/expenses/${id}`);
 
-    // CRUD ke baad analytics reload with current filter
+    
     const filter = getState().expenses.filter;
     dispatch(getExpensesComparison(filter));
     dispatch(getExpensesBreakdown(filter));
@@ -51,7 +51,7 @@ export const deleteExpense = createAsyncThunk(
   }
 );
 
-// ✅ Analytics Thunks with filter param
+
 export const getExpensesComparison = createAsyncThunk(
   "expenses/comparison",
   async (filter = "monthly") => {
@@ -74,7 +74,7 @@ const expenseSlice = createSlice({
     expenses: [],
     comparison: [],
     breakdown: [],
-    filter: "monthly", // ✅ default filter
+    filter: "monthly", 
     loading: false,
     error: null,
   },
@@ -85,7 +85,7 @@ const expenseSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      // ✅ Get all expenses
+    
       .addCase(getExpenses.pending, (state) => {
         state.loading = true;
       })
@@ -98,28 +98,28 @@ const expenseSlice = createSlice({
         state.error = action.error.message;
       })
 
-      // ✅ Create expense
+      
       .addCase(createExpense.fulfilled, (state, action) => {
         state.expenses.unshift(action.payload); // newest on top
       })
 
-      // ✅ Update expense
+      
       .addCase(updateExpense.fulfilled, (state, action) => {
         const index = state.expenses.findIndex((e) => e._id === action.payload._id);
         if (index !== -1) state.expenses[index] = action.payload;
       })
 
-      // ✅ Delete expense
+     
       .addCase(deleteExpense.fulfilled, (state, action) => {
         state.expenses = state.expenses.filter((e) => e._id !== action.payload);
       })
 
-      // ✅ Comparison
+      
       .addCase(getExpensesComparison.fulfilled, (state, action) => {
         state.comparison = action.payload;
       })
 
-      // ✅ Breakdown
+      
       .addCase(getExpensesBreakdown.fulfilled, (state, action) => {
         state.breakdown = action.payload;
       });

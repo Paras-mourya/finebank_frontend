@@ -3,7 +3,7 @@ import api from "@api/api";
 
 api.defaults.withCredentials = true;
 
-// ---------------- THUNKS ----------------
+
 
 export const registerUser = createAsyncThunk("user/register", async (data, { rejectWithValue }) => {
   try {
@@ -74,7 +74,7 @@ export const getProfile = createAsyncThunk("user/getProfile", async (_, { reject
   }
 });
 
-// ---------------- SLICE ----------------
+
 
 const userSlice = createSlice({
   name: "user",

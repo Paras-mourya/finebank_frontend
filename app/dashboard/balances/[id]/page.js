@@ -278,7 +278,7 @@ export default function AccountDetailPage() {
     </DialogHeader>
 
     <div className="space-y-4">
-      {/* Bank Name */}
+     
       <div>
         <Label className="text-gray-700 dark:text-gray-300">Bank Name</Label>
         <Input
@@ -290,7 +290,7 @@ export default function AccountDetailPage() {
         />
       </div>
 
-      {/* Account Type */}
+      
       <div>
         <Label className="text-gray-700 dark:text-gray-300">Account Type</Label>
         <select
@@ -309,7 +309,7 @@ export default function AccountDetailPage() {
         </select>
       </div>
 
-      {/* Balance */}
+     
       <div>
         <Label className="text-gray-700 dark:text-gray-300">Balance</Label>
         <Input
@@ -322,7 +322,7 @@ export default function AccountDetailPage() {
         />
       </div>
 
-      {/* Branch Name */}
+      
       <div>
         <Label className="text-gray-700 dark:text-gray-300">Branch Name</Label>
         <Input
@@ -334,7 +334,7 @@ export default function AccountDetailPage() {
         />
       </div>
 
-      {/* Account Number */}
+     
       <div>
         <Label className="text-gray-700 dark:text-gray-300">Account Number</Label>
         <Input

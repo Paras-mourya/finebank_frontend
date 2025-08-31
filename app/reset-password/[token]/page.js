@@ -11,7 +11,7 @@ import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
 
 export default function ResetPasswordPage() {
-  const { token } = useParams(); // ✅ Next.js 13/14/15 style
+  const { token } = useParams(); 
   console.log("Token from URL:", token);
   const dispatch = useDispatch();
   const router = useRouter();

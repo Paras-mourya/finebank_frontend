@@ -28,12 +28,12 @@ export default function Navbar({ onToggleSidebar }) {
 
   const { user, loading } = useSelector((state) => state.user);
 
-  // ✅ Get profile
+  
   useEffect(() => {
     dispatch(getProfile());
   }, [dispatch]);
 
-  // ✅ Socket connection
+  
   useEffect(() => {
     socket.on("notification", (data) => {
       setNotifications((prev) => [
@@ -47,7 +47,7 @@ export default function Navbar({ onToggleSidebar }) {
     };
   }, []);
 
-  // ✅ Search filter
+  
   const filteredPages = useMemo(() => {
     if (!search) return [];
     return menuItems.filter((item) =>
@@ -61,7 +61,7 @@ export default function Navbar({ onToggleSidebar }) {
     day: "numeric",
   });
 
-  // ✅ Enter to search
+  
   const handleKeyDown = (e) => {
     if (e.key === "Enter" && filteredPages.length > 0) {
       router.push(filteredPages[0].href);
@@ -69,7 +69,7 @@ export default function Navbar({ onToggleSidebar }) {
     }
   };
 
-  // ✅ Theme handling (persist with localStorage)
+  
   useEffect(() => {
     const storedTheme = localStorage.getItem("theme") || "light";
     setTheme(storedTheme);
@@ -94,9 +94,9 @@ export default function Navbar({ onToggleSidebar }) {
 
   return (
     <header className="sticky top-0 z-50 bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700 px-4 lg:px-6 py-3 flex items-center justify-between">
-      {/* 🔹 Left Section */}
+      
       <div className="flex items-center gap-3">
-        {/* Hamburger button (only mobile) */}
+
         <button
           onClick={onToggleSidebar}
           className="lg:hidden p-2 rounded-md text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"
@@ -104,7 +104,7 @@ export default function Navbar({ onToggleSidebar }) {
           <Menu className="h-6 w-6" />
         </button>
 
-        {/* Greeting (hide on mobile, show on lg+) */}
+       
         <div className="hidden lg:flex flex-col">
          
           <span className="text-sm text-gray-600 dark:text-gray-200">{today}</span>
@@ -150,7 +150,7 @@ export default function Navbar({ onToggleSidebar }) {
 
        
 
-        {/* Notifications */}
+       
         <div className="relative">
           <button
             onClick={() => setShowDropdown(!showDropdown)}

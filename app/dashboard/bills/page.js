@@ -115,7 +115,7 @@ export default function BillsPage() {
 
   return (
     <div className="p-6 min-h-screen  rounded-lg space-y-6 bg-gray-50 text-gray-900 dark:bg-gray-900 dark:text-gray-100 transition-colors">
-      {/* Header */}
+      
       <div className="flex items-center  justify-between">
         <h2 className="text-2xl font-bold">Upcoming Bills</h2>
         <button
@@ -130,7 +130,7 @@ export default function BillsPage() {
         </button>
       </div>
 
-      {/* Bill Form */}
+     
       {showForm && (
         <form
           onSubmit={handleSubmit}
@@ -205,7 +205,7 @@ export default function BillsPage() {
         </form>
       )}
 
-      {/* Bills List */}
+     
       <div className="mt-6 rounded-xl border border-gray-300 dark:border-gray-800 bg-card shadow-sm transition-colors">
         <div className="hidden grid-cols-12 border-b border-gray-300 dark:border-gray-700 px-5 py-3 text-sm font-bold md:grid">
           <div className="col-span-2">Due Date</div>

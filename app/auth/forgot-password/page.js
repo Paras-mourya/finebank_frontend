@@ -14,7 +14,7 @@ export default function ForgotPasswordPage() {
   const [email, setEmail] = useState("")
   const dispatch = useDispatch()
 
-  // Redux state
+  
   const { loading, error, success } = useSelector(
   (state) => state.user
 );
@@ -24,7 +24,7 @@ export default function ForgotPasswordPage() {
     dispatch(forgotPassword(email))
   }
 
-  // Reset error/success on unmount or re-render
+  
   useEffect(() => {
     return () => {
       dispatch(clearForgotError())
@@ -32,7 +32,7 @@ export default function ForgotPasswordPage() {
     }
   }, [dispatch])
 
-  // ✅ If successMessage available then show success screen
+
   if (success) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center p-4">
@@ -87,7 +87,7 @@ export default function ForgotPasswordPage() {
             </Button>
           </form>
 
-          {/* error show karega agar API se aaye */}
+        
           {error && <p className="text-red-500 text-center">{error}</p>}
 
           <div className="text-center">

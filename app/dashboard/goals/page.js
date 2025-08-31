@@ -55,7 +55,7 @@ export default function GoalsPage() {
     dispatch(getGoals());
   }, [dispatch]);
 
-  // ✅ Create / Update
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (
@@ -84,7 +84,7 @@ export default function GoalsPage() {
     setEditId(null);
   };
 
-  // ✅ Chart Data
+ 
   const chartData = goals.map((goal) => ({
     name: goal.title,
     target: goal.targetAmount,
@@ -100,7 +100,7 @@ export default function GoalsPage() {
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900 p-6 transition-colors">
-      {/* Header */}
+     
       <div className="flex justify-between items-center mb-6">
         <h2 className="text-3xl font-bold bg-gradient-to-r from-teal-600 to-emerald-500 bg-clip-text text-transparent">
           Goals Dashboard
@@ -116,9 +116,9 @@ export default function GoalsPage() {
         </Button>
       </div>
 
-      {/* Charts */}
+     
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
-        {/* Line Chart */}
+      
         <Card className="shadow-lg rounded-xl hover:shadow-2xl transition bg-card">
           <CardHeader className="bg-card border-gray-800 dark:border-gray-700">
             <CardTitle className="text-lg font-semibold text-gray-700 dark:text-gray-200">
@@ -155,7 +155,7 @@ export default function GoalsPage() {
           </CardContent>
         </Card>
 
-        {/* Pie Chart */}
+       
         <Card className="shadow-lg rounded-xl hover:shadow-2xl transition bg-card">
           <CardHeader className="bg-card h-2 border-gray-200 dark:border-gray-700 rounded-t-xl">
             <CardTitle className="text-lg font-semibold text-gray-700 dark:text-gray-200">
@@ -195,7 +195,7 @@ export default function GoalsPage() {
         </Card>
       </div>
 
-      {/* Goals List */}
+     
       <h3 className="text-xl font-semibold text-gray-700 dark:text-gray-200 mb-4">
         Your Goals
       </h3>
@@ -218,7 +218,7 @@ export default function GoalsPage() {
                 className="hover:shadow-sm transition-shadow rounded-xl border bg-card"
               >
                 <CardContent className="p-5 relative">
-                  {/* Action icons */}
+               
                   <div className="absolute top-4 right-4 flex items-center gap-2">
                     <button
                       onClick={() => {
@@ -259,7 +259,7 @@ export default function GoalsPage() {
                         Deadline: {goal.deadline?.slice(0, 10)}
                       </p>
 
-                      {/* Progress bar */}
+                   
                       <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2 mt-2">
                         <div
                           className="bg-gradient-to-r from-teal-400 to-emerald-500 h-2 rounded-full"
@@ -278,7 +278,7 @@ export default function GoalsPage() {
         </div>
       )}
 
-      {/* Add / Edit Modal */}
+    
       <Dialog open={showModal} onOpenChange={setShowModal}>
         <DialogContent className="rounded-xl p-6 max-w-md bg-white dark:bg-gray-800">
           <DialogHeader>

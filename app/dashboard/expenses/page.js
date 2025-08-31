@@ -38,22 +38,22 @@ export default function ExpensesPage() {
   });
   const [editingId, setEditingId] = useState(null);
 
-  // ✅ filter state for comparison chart
+  
   const [filter, setFilter] = useState("monthly");
 
-  // ✅ fetch data on mount + whenever filter changes
+  
   useEffect(() => {
     dispatch(getExpenses());
     dispatch(getExpensesComparison(filter));
     dispatch(getExpensesBreakdown());
   }, [dispatch, filter]);
 
-  // ✅ handle input change
+ 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  // ✅ handle submit
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -90,7 +90,7 @@ export default function ExpensesPage() {
     dispatch(getExpensesBreakdown());
   };
 
-  // ✅ handle edit
+  
   const handleEdit = (exp) => {
     setFormData({
       title: exp.title,
@@ -101,7 +101,7 @@ export default function ExpensesPage() {
     setShowForm(true);
   };
 
-  // ✅ handle delete
+
   const handleDelete = (id) => {
     dispatch(deleteExpense(id)).then(() => {
       dispatch(getExpensesComparison(filter));
@@ -126,7 +126,7 @@ export default function ExpensesPage() {
         </button>
       </div>
 
-      {/* ✅ Expense Form (toggle) */}
+     
       {showForm && (
         <form
           onSubmit={handleSubmit}
@@ -174,7 +174,7 @@ export default function ExpensesPage() {
             Expenses Comparison
           </h3>
 
-          {/* ✅ Filter Buttons */}
+         
           <div className="space-x-2">
             {["daily", "weekly", "monthly", "yearly"].map((f) => (
               <Button
@@ -209,7 +209,7 @@ export default function ExpensesPage() {
         </div>
       </div>
 
-      {/* ✅ Breakdown Section */}
+      
       <h3 className="text-md font-semibold text-gray-700 dark:text-gray-200 mb-4">
         Expenses Breakdown
       </h3>

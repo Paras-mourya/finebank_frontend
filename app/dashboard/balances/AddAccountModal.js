@@ -81,7 +81,7 @@ export default function AddAccountModal() {
     </DialogHeader>
 
     <form onSubmit={handleSubmit} className="space-y-4">
-      {/* Account Type */}
+      
       <div>
         <Label className="text-gray-700 dark:text-gray-300">Account Type</Label>
         <Select
@@ -102,7 +102,7 @@ export default function AddAccountModal() {
         </Select>
       </div>
 
-      {/* Bank Name */}
+      
       <div>
         <Label className="text-gray-700 dark:text-gray-300">Bank Name</Label>
         <Input
@@ -114,7 +114,7 @@ export default function AddAccountModal() {
         />
       </div>
 
-      {/* Branch Name */}
+     
       <div>
         <Label className="text-gray-700 dark:text-gray-300">Branch Name</Label>
         <Input
@@ -125,7 +125,7 @@ export default function AddAccountModal() {
         />
       </div>
 
-      {/* Account Number */}
+     
       <div>
         <Label className="text-gray-700 dark:text-gray-300">Account Number</Label>
         <Input
@@ -137,7 +137,7 @@ export default function AddAccountModal() {
         />
       </div>
 
-      {/* Balance */}
+      
       <div>
         <Label className="text-gray-700 dark:text-gray-300">Balance</Label>
         <Input

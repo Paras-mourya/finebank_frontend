@@ -6,7 +6,7 @@ import {
   getProfile,
   updateProfile,
   changePassword,
-  clearMessages,   // ✅ slice me ek action rakho messages reset karne ke liye
+  clearMessages,   
 } from "@/redux/slice/userSlice";
 import { toast } from "sonner";
 
@@ -16,9 +16,9 @@ export default function UpdateProfileCard() {
 
   const [activeTab, setActiveTab] = useState("account");
 
-  // ✅ Regex function
+  
 function isValidPhoneNumber(phone) {
-  // ✅ 10 se 15 digits allow (with optional + in start)
+  
   const regex = /^\+?[0-9]{10,15}$/;
 
   if (!regex.test(phone)) {
@@ -31,12 +31,12 @@ function isValidPhoneNumber(phone) {
 
 
 
-// profile fields
+
 const [name, setName] = useState("");
 const [phone, setPhone] = useState("");
 const [avatar, setAvatar] = useState(null);
 
-  // password fields
+  
   const [currentPassword, setCurrentPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -90,7 +90,7 @@ const [avatar, setAvatar] = useState(null);
 
   return (
     <div className="bg-card shadow-md rounded-xl p-6">
-      {/* Tabs */}
+      
       <div className="flex border-b mb-6 space-x-6">
         <button
           onClick={() => setActiveTab("account")}
@@ -114,7 +114,7 @@ const [avatar, setAvatar] = useState(null);
         </button>
       </div>
 
-      {/* Account Section */}
+      
       {activeTab === "account" && (
         <div className="flex space-x-8">
           <div className="flex-1">
@@ -165,7 +165,7 @@ const [avatar, setAvatar] = useState(null);
             </form>
           </div>
 
-          {/* avatar */}
+          
           <div className="flex flex-col items-center space-y-3">
             <span className="text-sm font-medium text-gray-700 dark:text-gray-200">
               Your Profile Picture
@@ -191,7 +191,7 @@ const [avatar, setAvatar] = useState(null);
         </div>
       )}
 
-      {/* Security Section */}
+      
       {activeTab === "security" && (
         <div className="max-w-md">
           <form onSubmit={handleChangePassword} className="space-y-4">

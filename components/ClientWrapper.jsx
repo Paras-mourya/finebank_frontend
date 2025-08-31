@@ -13,7 +13,7 @@ export default function ClientWrapper({ children }) {
 
     const timer = setTimeout(() => {
       setLoading(false);
-    }, 500); // smoother UX
+    }, 500); 
 
     return () => clearTimeout(timer);
   }, [pathname]);
@@ -21,7 +21,7 @@ export default function ClientWrapper({ children }) {
   if (loading) {
     return (
       <div className="relative flex items-center justify-center h-[calc(100vh-4rem)]">
-        {/* 4rem = Navbar ki height */}
+       
         <Loader />
       </div>
     );

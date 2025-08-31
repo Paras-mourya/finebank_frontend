@@ -26,7 +26,7 @@ export default function ProfileCard() {
 
   return (
     <Card className="w-full max-w-2xl mx-auto shadow-2xl border rounded-3xl overflow-hidden">
-      {/* Header */}
+     
       <CardHeader className="flex flex-col  items-center bg-gradient-to-r from-teal-600 to-emerald-500 p-10">
         <Avatar className="h-32 w-32 border-4 border-white shadow-lg rounded-full">
           <AvatarImage

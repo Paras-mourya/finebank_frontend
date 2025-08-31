@@ -45,7 +45,7 @@ export default function Sidebar({ isOpen, onClose }) {
 
   return (
     <>
-      {/* Overlay (mobile only) */}
+    
       {isOpen && (
         <div
           onClick={onClose}
@@ -53,7 +53,7 @@ export default function Sidebar({ isOpen, onClose }) {
         />
       )}
 
-      {/* Sidebar */}
+      
       <aside
         className={`fixed inset-y-0 left-0 w-64
         bg-gray-900 text-gray-200
@@ -61,12 +61,12 @@ export default function Sidebar({ isOpen, onClose }) {
         flex-col transform transition-transform duration-300 z-50
         ${isOpen ? "translate-x-0" : "-translate-x-full"} lg:translate-x-0 lg:flex`}
       >
-        {/* Header */}
+       
         <div className="h-16 flex items-center justify-between px-4 border-b border-gray-700 dark:border-gray-200">
           <h1 className="text-xl font-bold">
             Xpense<span className="text-teal-500">Trakr</span>
           </h1>
-          {/* Close button (mobile only) */}
+          
           <button
             onClick={onClose}
             className="lg:hidden text-gray-400 hover:text-white dark:text-gray-600 dark:hover:text-gray-900"
@@ -75,7 +75,7 @@ export default function Sidebar({ isOpen, onClose }) {
           </button>
         </div>
 
-        {/* Navigation */}
+      
         <nav className="flex-1 p-4 space-y-2 overflow-y-auto">
           {menuItems.map((item) => {
             const Icon = item.icon
@@ -114,7 +114,7 @@ export default function Sidebar({ isOpen, onClose }) {
 
         </div>
 
-        {/* Profile Section */}
+        
         {user && (
           <Link
             href="/dashboard/profile"

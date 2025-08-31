@@ -24,7 +24,7 @@ export default function DashboardLayout({ children }) {
 
   return (
     <div className="flex min-h-screen bg-gray-50 dark:bg-gray-900">
-      {/* ✅ Sidebar static */}
+      
       <Sidebar
         isOpen={isSidebarOpen}
         onClose={() => setIsSidebarOpen(false)}
@@ -35,10 +35,10 @@ export default function DashboardLayout({ children }) {
           isSidebarOpen ? "lg:ml-64" : "ml-0"
         }`}
       >
-        {/* ✅ Navbar static */}
+       
         <Navbar onToggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)} />
 
-        {/* ✅ Sirf content area change hoga */}
+        
         <main className="flex-1 overflow-y-auto p-6">
           <ClientWrapper>{children}</ClientWrapper>
         </main>
